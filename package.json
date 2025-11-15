@@ -3,14 +3,36 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
+    "@cap-js/hana": "^2",
     "@sap/cds": "^9",
+    "@sap/cds-dk": "^9.4.3",
     "express": "^4"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^2"
+    "@cap-js/sqlite": "^2",
+    "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-manager": "cds watch --open com.etr.manager.manager/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-finance": "cds watch --open com.etr.finance.finance/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-employee": "cds watch --open com.etr.employee.employee/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-department": "cds watch --open com.etr.department.department/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-admin_dashboard": "cds watch --open com.etr.admindashboard.admindashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-travel_requests": "cds watch --open com.etr.travelrequests.travelrequests/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manager_approval": "cds watch --open com.etr.managerapproval.managerapproval/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
-  "private": true
+  "private": true,
+  "cds": {},
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/manager",
+    "app/finance",
+    "app/employee",
+    "app/department",
+    "app/travel_requests",
+    "app/manager_approval"
+  ]
 }
