@@ -17,7 +17,7 @@ module.exports = cds.service.impl(async function() {
 
     this.before(['CREATE','UPDATE'], 'TravelRequestsEntity', req =>{
 
-        const {fromDate, toDate, estCost} = req.data
+        const {fromDate, toDate, estCost, requiresFinance} = req.data
 
         if(new Date(fromDate) > new Date(toDate)){
             req.error(400, 'Travel start date cannot be later than end date.');
@@ -27,7 +27,17 @@ module.exports = cds.service.impl(async function() {
             req.error(400, 'Estimated cost must be greater than zero.');
         }
 
+
+        if(estCost > 15000){
+            req.data.requiresFinance = true;
+        }
+        else{
+            req.data.requiresFinance = false;
+        }
+
     });
+
+    
 
     
 

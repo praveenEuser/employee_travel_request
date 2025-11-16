@@ -1,8 +1,10 @@
 using { com.emptravelreq as etr } from '../db/etr-model';
 
-service Manager @(path : 'Manager_Approval') {
+service Finance @(path : 'Finance_Approval') {
 
-    entity TravelRequestsEntity as projection on etr.TravelRequests
+    entity TravelRequestsEntity as projection on etr.TravelRequests{
+        *,
+    } where requiresFinance = true
 
     actions {
         @cds.odata.bindingparameter.name :'_praveen'
@@ -18,7 +20,7 @@ service Manager @(path : 'Manager_Approval') {
         }
 
         action managerReject(reqID : UUID @Common.Label : 'Travel Request ID', comments : String @Common.Label : 'Rejection Reason') returns Boolean;
-    }; 
+    };
 
     entity TravelExpensesEntity as projection on etr.TravelExpenses;
 

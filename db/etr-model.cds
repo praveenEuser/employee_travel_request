@@ -35,13 +35,19 @@ entity Departments : cuid {
 
 entity TravelRequests : cuid {
       employee_ID : UUID;
-      employee : Association to Departments on employee.ID = employee_ID;
+      employee : Association to Employee on employee.ID = employee_ID;
       purpose    : String(255);
       fromDate   : Date;
       toDate     : Date;
       destination: String(100);
       estCost    : Decimal(15,2);
-      status     : String(20) default 'Draft';
+      mode       : String;
+      status     : String(50) default 'Draft';
+      @readonly
+      rejectReason        : String(2000); 
+      @readonly
+      requiresFinance: Boolean default false;
+      
       expenses   : Composition of many TravelExpenses on expenses.c_request = $self;
 }
 

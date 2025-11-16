@@ -1,7 +1,7 @@
 {
   "_version": "1.76.0",
   "sap.app": {
-    "id": "com.etr.managerapproval.managerapproval",
+    "id": "com.etr.financetravelreqapproval.financeapprove",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,11 +13,11 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.19.5",
-      "toolsId": "99a6574e-d73a-49b5-a15f-f6b626147382"
+      "toolsId": "f09aff4a-c05d-44c1-8d99-916b5ff5bd43"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/Manager_Approval/",
+        "uri": "/odata/v4/Finance_Approval/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,10 +27,10 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "Manager_Approval-display": {
-          "semanticObject": "Manager_Approval",
+        "Finance_TR_Approval-display": {
+          "semanticObject": "Finance_TR_Approval",
           "action": "display",
-          "title": "{{Manager_Approval-display.flpTitle}}",
+          "title": "{{Finance_TR_Approval-display.flpTitle}}",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -73,7 +73,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "com.etr.managerapproval.managerapproval.i18n.i18n"
+          "bundleName": "com.etr.financetravelreqapproval.financeapprove.i18n.i18n"
         }
       },
       "": {
@@ -135,7 +135,7 @@
                   }
                 }
               },
-              "initialLoad": "Auto"
+              "initialLoad": "Enabled"
             }
           }
         },

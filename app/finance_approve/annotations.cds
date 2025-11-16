@@ -1,51 +1,51 @@
-using TravelReq as service from '../../srv/travel_requests_service';
+using Finance as service from '../../srv/finance_approval_service';
 annotate service.TravelRequestsEntity with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : 'employee_ID',
-                Value : employee_ID,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'Purpose',
+                Label : 'purpose',
                 Value : purpose,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Travel Start Date',
+                Label : 'fromDate',
                 Value : fromDate,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Travel End Date',
+                Label : 'toDate',
                 Value : toDate,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Destination',
+                Label : 'destination',
                 Value : destination,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Estimation Cost',
+                Label : 'estCost',
                 Value : estCost,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Mode of Travel',
+                Label : 'mode',
                 Value : mode,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Status',
+                Label : 'status',
                 Value : status,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Finance Approval Required',
+                Label : 'rejectReason',
+                Value : rejectReason,
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'requiresFinance',
                 Value : requiresFinance,
             },
         ],
@@ -54,55 +54,35 @@ annotate service.TravelRequestsEntity with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'Travel Request Information',
+            Label : 'General Information',
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
     ],
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'Employee ID',
-            Value : employee_ID,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Purpose',
+            Label : 'purpose',
             Value : purpose,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Travel Start Date',
+            Label : 'fromDate',
             Value : fromDate,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Travel End Date',
+            Label : 'toDate',
             Value : toDate,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Destination',
+            Label : 'destination',
             Value : destination,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Estimation Cost',
+            Label : 'estCost',
             Value : estCost,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Mode of Travel',
-            Value : mode,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Status',
-            Value : status,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'Finance Approval Required',
-            Value : requiresFinance,
         },
     ],
     UI.HeaderInfo:{
@@ -116,7 +96,7 @@ annotate service.TravelRequestsEntity with @(
 );
 
 annotate service.TravelRequestsEntity with {
-    employee_ID @Common.ValueList : {
+    employee @Common.ValueList : {
         $Type : 'Common.ValueListType',
         CollectionPath : 'EmployeeEntity',
         Parameters : [
@@ -128,6 +108,10 @@ annotate service.TravelRequestsEntity with {
             {
                 $Type : 'Common.ValueListParameterDisplayOnly',
                 ValueListProperty : 'e_name',
+            },
+            {
+                $Type : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'e_mail',
             },
         ],
     }

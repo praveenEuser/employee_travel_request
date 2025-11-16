@@ -12,3 +12,5 @@ using from './admin_dashboard/annotations';
 using from './travel_requests/annotations';
 
 using from './manager_approval/annotations';
+
+using from './finance_approve/annotations';

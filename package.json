@@ -20,7 +20,8 @@
     "watch-department": "cds watch --open com.etr.department.department/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-admin_dashboard": "cds watch --open com.etr.admindashboard.admindashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-travel_requests": "cds watch --open com.etr.travelrequests.travelrequests/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-manager_approval": "cds watch --open com.etr.managerapproval.managerapproval/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-manager_approval": "cds watch --open com.etr.managerapproval.managerapproval/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-finance_approve": "cds watch --open com.etr.financetravelreqapproval.financeapprove/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {},
@@ -33,6 +34,7 @@
     "app/employee",
     "app/department",
     "app/travel_requests",
-    "app/manager_approval"
+    "app/manager_approval",
+    "app/finance_approve"
   ]
 }
