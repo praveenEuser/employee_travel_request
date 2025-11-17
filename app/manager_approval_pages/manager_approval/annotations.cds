@@ -1,4 +1,4 @@
-using Manager as service from '../../srv/manager_approval_service';
+using Manager as service from '../../../srv/manager_approval_service';
 
 annotate service.TravelRequestsEntity with @Capabilities.DeleteRestrictions.Deletable : false;
 

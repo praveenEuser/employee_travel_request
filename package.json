@@ -21,7 +21,13 @@
     "watch-admin_dashboard": "cds watch --open com.etr.admindashboard.admindashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-travel_requests": "cds watch --open com.etr.travelrequests.travelrequests/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-manager_approval": "cds watch --open com.etr.managerapproval.managerapproval/index.html?sap-ui-xx-viewCache=false --livereload false",
-    "watch-finance_approve": "cds watch --open com.etr.financetravelreqapproval.financeapprove/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-finance_approve": "cds watch --open com.etr.financetravelreqapproval.financeapprove/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-travel_expense": "cds watch --open com.etr.travelexpense.travelexpense/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-travel_request_dashboard": "cds watch --open com.etr.travelreqdashboard.travelrequestdashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manager_expense_approval": "cds watch --open com.etr.managerexpapproval.managerexpenseapproval/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-finance_expense_approval": "cds watch --open com.etr.financeexpapproval.financeexpenseapproval/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-manager_approval_dashboard": "cds watch --open com.etr.managerapprovaldashboard.managerapprovaldashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-finance_approval_dashboard": "cds watch --open com.etr.financeapprovaldashboard.financeapprovaldashboard/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {},
@@ -35,6 +41,9 @@
     "app/department",
     "app/travel_requests",
     "app/manager_approval",
-    "app/finance_approve"
+    "app/finance_approve",
+    "app/travel_expense",
+    "app/manager_expense_approval",
+    "app/finance_expense_approval"
   ]
 }

@@ -1,0 +1,177 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "com.etr.financeexpapproval.financeexpenseapproval",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.19.5",
+      "toolsId": "2459ca66-9615-4b22-8b5a-4866c66f0804"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/Finance_Expense/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Finance_Expense_Approval-display": {
+          "semanticObject": "Finance_Expense_Approval",
+          "action": "display",
+          "title": "{{Finance_Expense_Approval-display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.142.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.etr.financeexpapproval.financeexpenseapproval.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "TravelRequestsEntityList",
+          "target": "TravelRequestsEntityList"
+        },
+        {
+          "pattern": "TravelRequestsEntity({key}):?query:",
+          "name": "TravelRequestsEntityObjectPage",
+          "target": "TravelRequestsEntityObjectPage"
+        },
+        {
+          "pattern": "TravelRequestsEntity({key})/expenses({key2}):?query:",
+          "name": "TravelExpensesEntityObjectPage",
+          "target": "TravelExpensesEntityObjectPage"
+        }
+      ],
+      "targets": {
+        "TravelRequestsEntityList": {
+          "type": "Component",
+          "id": "TravelRequestsEntityList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/TravelRequestsEntity",
+              "variantManagement": "Page",
+              "navigation": {
+                "TravelRequestsEntity": {
+                  "detail": {
+                    "route": "TravelRequestsEntityObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "TravelRequestsEntityObjectPage": {
+          "type": "Component",
+          "id": "TravelRequestsEntityObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/TravelRequestsEntity",
+              "navigation": {
+                "expenses": {
+                  "detail": {
+                    "route": "TravelExpensesEntityObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "TravelExpensesEntityObjectPage": {
+          "type": "Component",
+          "id": "TravelExpensesEntityObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/TravelRequestsEntity/expenses"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

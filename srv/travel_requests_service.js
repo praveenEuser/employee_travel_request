@@ -28,7 +28,7 @@ module.exports = cds.service.impl(async function() {
         }
 
 
-        if(estCost > 15000){
+        if(estCost > 20000){
             req.data.requiresFinance = true;
         }
         else{

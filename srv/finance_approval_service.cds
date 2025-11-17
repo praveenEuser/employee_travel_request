@@ -12,14 +12,14 @@ service Finance @(path : 'Finance_Approval') {
             TargetProperties : ['_praveen/status', '_praveen/rejectReason']
         }
 
-        action managerApprove(reqID : UUID @Common.Label : 'Travel Request ID') returns Boolean;
+        action financeApprove(reqID : UUID @Common.Label : 'Travel Request ID') returns Boolean;
 
         @cds.odata.bindingparameter.name :'_reject'
         @Common.SideEffects : {
             TargetProperties : ['_reject/status', '_reject/rejectReason']
         }
 
-        action managerReject(reqID : UUID @Common.Label : 'Travel Request ID', comments : String @Common.Label : 'Rejection Reason') returns Boolean;
+        action financeReject(reqID : UUID @Common.Label : 'Travel Request ID', comments : String @Common.Label : 'Rejection Reason') returns Boolean;
     };
 
     entity TravelExpensesEntity as projection on etr.TravelExpenses;

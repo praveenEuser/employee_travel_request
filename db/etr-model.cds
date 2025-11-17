@@ -54,6 +54,7 @@ entity TravelRequests : cuid {
 entity TravelExpenses : cuid{
       category : String(50);
       amount   : Decimal(15,2);
+      @mandatory
       bill     : LargeBinary @Core.MediaType: 'application/pdf';
       c_request_ID : UUID not null;
       c_request       : Association to TravelRequests on c_request.ID = c_request_ID;

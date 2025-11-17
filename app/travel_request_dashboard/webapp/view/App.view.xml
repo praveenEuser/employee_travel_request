@@ -1,0 +1,38 @@
+<mvc:View controllerName="com.etr.travelreqdashboard.travelrequestdashboard.controller.App"
+    displayBlock="true"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:core="sap.ui.core">
+
+  <VBox class="sapUiSmallMargin">
+    <Title text="Travel Request Dashboard" level="H1" class="sapUiSmallMarginBottom" />
+
+    <f:GridList
+      id="gridList"
+      items="{/tiles}"
+      growing="true"
+      noDataText="No tiles available">
+
+      <f:items>
+        <f:GridListItem>
+          <GenericTile
+            header="{title}"
+            subheader="{subtitle}"
+            press="onTilePress"
+            class="sapUiSmallMargin"
+            frameType="OneByOne">
+
+            <TileContent>
+              <core:Icon
+                src="{icon}"
+                size="4rem"
+                color="Accent" />
+            </TileContent>
+
+          </GenericTile>
+        </f:GridListItem>
+      </f:items>
+    </f:GridList>
+  </VBox>
+</mvc:View>
