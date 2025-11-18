@@ -41,7 +41,7 @@ entity TravelRequests : cuid {
       toDate     : Date;
       destination: String(100);
       estCost    : Decimal(15,2);
-      mode       : String;
+      modes       : Composition of many TravelMode on modes.travelreq = $self;
       status     : String(50) default 'Draft';
       @readonly
       rejectReason        : String(2000); 
@@ -51,11 +51,21 @@ entity TravelRequests : cuid {
       expenses   : Composition of many TravelExpenses on expenses.c_request = $self;
 }
 
+entity TravelMode : cuid {
+  travelreq :  Association to TravelRequests;
+  mode          : String enum {
+    bus;
+    train;
+    flight;
+    car;
+  };
+}
+
 entity TravelExpenses : cuid{
       category : String(50);
       amount   : Decimal(15,2);
       @mandatory
-      bill     : LargeBinary @Core.MediaType: 'application/pdf';
+      bill     : LargeBinary @Core.MediaType: '*/*';
       c_request_ID : UUID not null;
       c_request       : Association to TravelRequests on c_request.ID = c_request_ID;
 }

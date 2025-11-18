@@ -46,7 +46,7 @@ module.exports = cds.service.impl(async function() {
         if (tr.requiresFinance === false) {
 
             
-
+            
             // console.log('DBG budget values (raw):', { estRaw: tr.estCost, usedRaw: dept.usedBudget, totalRaw: dept.budget });
             // console.log('DBG budget values (num):', { est, used, total, sum: used + est });
 

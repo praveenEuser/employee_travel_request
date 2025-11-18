@@ -39,7 +39,7 @@ annotate service.TravelRequestsEntity with @(
             {
                 $Type : 'UI.DataField',
                 Label : 'Mode of Travel',
-                Value : mode,
+                Value : modes.mode,
             },
             
     ],

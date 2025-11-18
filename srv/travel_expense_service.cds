@@ -13,11 +13,10 @@ service TravelExp @(path : 'Travel_Expense') {
         @readonly fromDate,
         @readonly toDate,
         @readonly estCost,
-        @readonly mode,
         @readonly rejectReason,
         @readonly requiresFinance,
-        *,
-    };
+        *
+    } where status = 'Approved' or status = 'Settled';
 
     entity TravelExpensesEntity as projection on etr.TravelExpenses;
 
@@ -28,5 +27,10 @@ service TravelExp @(path : 'Travel_Expense') {
     entity FinanceEntity as projection on etr.Finance;
 
     entity DepartmentEntity as projection on etr.Departments;
+
+    entity TravelModeEntity as projection on etr.TravelMode{
+        @readonly mode,
+        *
+    };
 
 }

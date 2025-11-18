@@ -36,7 +36,7 @@ annotate service.TravelRequestsEntity with @(
             {
                 $Type : 'UI.DataField',
                 Label : 'Mode of Travel',
-                Value : mode,
+                Value : modes.mode,
             },
             {
                 $Type : 'UI.DataField',
@@ -92,7 +92,7 @@ annotate service.TravelRequestsEntity with @(
         {
             $Type : 'UI.DataField',
             Label : 'Mode of Travel',
-            Value : mode,
+            Value : modes.mode,
         },
         {
             $Type : 'UI.DataField',
@@ -114,6 +114,13 @@ annotate service.TravelRequestsEntity with @(
         },
     },
 );
+
+annotate service.TravelMode with {
+    ID @UI.Hidden;
+    mode @Common.Label : 'Mode of Transport';
+    travelreq @UI.Hidden;
+}
+
 
 annotate service.TravelRequestsEntity with {
     employee_ID @Common.ValueList : {

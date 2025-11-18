@@ -6,7 +6,8 @@ module.exports = cds.service.impl(async function() {
     const { TravelRequestsEntity } = this.entities
     
         this.on('financeApprove', async req => {
-            const { reqID } = req.data;
+            const param = req.params?.[0];
+            const reqID = param?.ID ?? param;
             const tx = cds.tx(req);
     
             const tr = await tx.run(SELECT.one.from(TravelRequestsEntity).where({ ID: reqID }));
@@ -39,7 +40,9 @@ module.exports = cds.service.impl(async function() {
     
     
         this.on('financeReject', async req => {
-            const { reqID, comments } = req.data;
+            const param = req.params?.[0];
+            const reqID = param?.ID ?? param;
+            const { comments } = req.data;
             const tx = cds.tx(req);
     
             if (!comments || !comments.trim()) {

@@ -2,21 +2,17 @@ using { com.emptravelreq as etr } from '../db/etr-model';
 
 service FinanceExp @(path : 'Finance_Expense') {
 
-    entity TravelRequestsEntity @(
-        odata.draft.enabled : true
-    ) as projection on etr.TravelRequests{
-        @readonly status,
-        @readonly employee_ID,
-        @readonly destination,
-        @readonly purpose,
-        @readonly ID,
-        @readonly fromDate,
-        @readonly toDate,
-        @readonly estCost,
-        @readonly mode,
-        @readonly rejectReason,
-        @readonly requiresFinance,
+    entity TravelRequestsEntity as projection on etr.TravelRequests{
         *,
+    } where status = 'Settled' or status = 'Approved' and requiresFinance = true
+
+    actions {
+            @cds.odata.bindingparameter.name :'_praveen'
+            @Common.SideEffects : {
+                TargetProperties : ['_praveen/status']
+            }
+
+            action settleExpense() returns Boolean;
     };
 
     entity TravelExpensesEntity as projection on etr.TravelExpenses;

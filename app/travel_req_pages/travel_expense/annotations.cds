@@ -1,5 +1,6 @@
 using TravelExp as service from '../../../srv/travel_expense_service';
 
+
 annotate service.TravelRequestsEntity with @Capabilities.DeleteRestrictions.Deletable : false;
 
 annotate service.TravelRequestsEntity with @Capabilities.InsertRestrictions.Insertable : false;
@@ -43,11 +44,6 @@ annotate service.TravelRequestsEntity with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'mode',
-                Value : mode,
-            },
-            {
-                $Type : 'UI.DataField',
                 Label : 'rejectReason',
                 Value : rejectReason,
             },
@@ -62,8 +58,13 @@ annotate service.TravelRequestsEntity with @(
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'GeneratedFacet1',
-            Label : 'General Information',
+            Label : 'Travel Request Information',
             Target : '@UI.FieldGroup#GeneratedGroup',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Travel Expenses',
+            Target: 'expenses/@UI.LineItem',
         },
     ],
     UI.LineItem : [
@@ -93,7 +94,85 @@ annotate service.TravelRequestsEntity with @(
             Value : destination,
         },
     ],
+    UI.HeaderInfo:{
+        TypeName : 'Travel Request',
+        TypeNamePlural : 'Travel Requests',
+        Title:{
+            $Type : 'UI.DataField',
+            Value : ID,
+        }
+    },
 );
+
+annotate service.TravelExpensesEntity with @(
+    
+    UI.LineItem:[
+        {
+            $Type : 'UI.DataField',
+            Label : 'Category',
+            Value : category,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Amount',
+            Value : amount,
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Bill Attachment',
+            Value : bill,
+        },  
+    ],
+    
+
+    UI.HeaderInfo:{
+        TypeName : 'Travel Expense',
+        TypeNamePlural : 'Travel Expenses',
+        Title:{
+            $Type : 'UI.DataField',
+            Value : category,
+        },
+    },
+    UI.Facets:[
+        {
+            $Type : 'UI.CollectionFacet',
+            Label: 'Travel Expense Information',
+            Facets : [
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    Label : 'Travel Expense Information',
+                    Target : '@UI.Identification',
+                },
+            ],
+            
+        },
+    ],
+
+    UI.Identification:[
+        {
+            $Type: 'UI.DataField',
+            Label:'Category',
+            Value : category,
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Amount',
+            Value : amount,
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Bill Attachment',
+            Value : bill,
+        },
+    ],
+);
+
+
+annotate service.TravelExpensesEntity with {
+    ID @UI.Hidden;
+    c_request_ID @UI.Hidden;
+}
+
 
 annotate service.TravelRequestsEntity with {
     employee @Common.ValueList : {
