@@ -1,0 +1,94 @@
+{
+  "xsappname": "employee_travel_request",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.AdminRole",
+      "description": "Admin role - can add Manager, Finance, Employee and Departments"
+    },
+    {
+      "name": "$XSAPPNAME.ManagerRole",
+      "description": "Manager role - can Approve/Reject Travel Request and Settle Travel Expense"
+    },
+    {
+      "name": "$XSAPPNAME.FinanceRole",
+      "description": "Finance role - can Approve/Reject Travel Request and Settle Travel Expense"
+    },
+    {
+      "name": "$XSAPPNAME.EmployeeRole",
+      "description": "Employee role - can create Travel Request and add Travel Expenses"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "ManagerID",
+      "description": "Manager identifier",
+      "valueType": "string"
+    },
+    {
+      "name": "FinanceID",
+      "description": "Finance identifier",
+      "valueType": "string"
+    },
+    {
+      "name": "EmployeeID",
+      "description": "Employee identifier",
+      "valueType": "string"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "AdminRole",
+      "description": "Admin role with full permissions",
+      "scope-references": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "name": "ManagerRole",
+      "description": "Manager role with limited access",
+      "scope-references": [
+        "$XSAPPNAME.ManagerRole"
+      ],
+      "attribute-references": [
+        {
+          "name": "ManagerID"
+        }
+      ]
+    },
+    {
+      "name": "FinanceRole",
+      "description": "Finance role with limited access",
+      "scope-references": [
+        "$XSAPPNAME.FinanceRole"
+      ],
+      "attribute-references": [
+        {
+          "name": "FinanceID"
+        }
+      ]
+    },
+    {
+      "name": "EmployeeRole",
+      "description": "Employee role with limited access",
+      "scope-references": [
+        "$XSAPPNAME.EmployeeRole"
+      ],
+      "attribute-references": [
+        {
+          "name": "EmployeeID"
+        }
+      ]
+    }
+  ],
+  "authorities": [
+    "$ACCEPT_GRANTED_AUTHORITIES"
+  ],
+  "oauth2-configuration": {
+                    "token-validity": 900, 
+                    "refresh-token-validity": 1800,
+                    "redirect-uris": ["https://*.cfapps.us10-001.hana.ondemand.com/login/callback"],
+                    "autoapprove": "false"
+ },
+  "xsenableasyncservice": true
+}

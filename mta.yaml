@@ -1,0 +1,80 @@
+_schema-version: 3.3.0
+ID: employee_travel_request
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: employee_travel_request-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      memory: 512M
+      disk_quota: 1G
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: employee_travel_request-db
+
+  - name: employee_travel_request-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      memory: 128M
+      disk_quota: 256M
+      buildpack: nodejs_buildpack
+    requires:
+      - name: employee_travel_request-db
+  - name: employee_travel_request
+    type: approuter.nodejs
+    path: app/
+    parameters:
+      keep-existing-routes: true
+      memory: 1G
+      disk_quota: 1G
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+
+resources:
+  - name: employee_travel_request-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: employee_travel_request-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          redirect-uris:
+            - https://*.cfapps.us10-001.hana.ondemand.com/login/callback
+    requires:
+      - name: app-api
+
+  - name: employee_travel_request-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

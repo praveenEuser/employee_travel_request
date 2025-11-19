@@ -1,0 +1,157 @@
+{
+  "authenticationMethod": "route",
+  "sessionTimeout": 10,
+  "routes": [
+    {
+      "source": "^/admin_dashboard/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "admin_dashboard/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "source": "^/admin_pages/manager/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "admin_pages/manager/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "source": "^/admin_pages/department/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "admin_pages/department/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "source": "^/admin_pages/employee/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "admin_pages/employee/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "source": "^/admin_pages/finance/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "admin_pages/finance/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.AdminRole"
+      ]
+    },
+    {
+      "source": "^/manager_approval_dashboard/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "manager_approval_dashboard/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.ManagerRole"
+      ]
+    },
+    {
+      "source": "^/manager_approval_pages/manager_approval/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "manager_approval_pages/manager_approval/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.ManagerRole"
+      ]
+    },
+    {
+      "source": "^/manager_approval_pages/manager_expense_approval/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "manager_approval_pages/manager_expense_approval/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.ManagerRole"
+      ]
+    },
+    {
+      "source": "^/finance_approval_dashboard/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "finance_approval_dashboard/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.FinanceRole"
+      ]
+    },
+    {
+      "source": "^/finance_approval_pages/finance_approve/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "finance_approval_pages/finance_approve/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.FinanceRole"
+      ]
+    },
+    {
+      "source": "^/finance_approval_pages/finance_expense_approval/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "finance_approval_pages/finance_expense_approval/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.FinanceRole"
+      ]
+    },
+    {
+      "source": "^/travel_request_dashboard/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "travel_request_dashboard/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.EmployeeRole"
+      ]
+    },
+    {
+      "source": "^/travel_req_pages/travel_expense/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "travel_req_pages/travel_expense/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.EmployeeRole"
+      ]
+    },
+    {
+      "source": "^/travel_req_pages/travel_requests/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "travel_req_pages/travel_requests/webapp/",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false,
+      "scope": [
+        "$XSAPPNAME.EmployeeRole"
+      ]
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    }
+  ],
+  "logout": {
+    "logoutEndpoint": "/my/logout",
+    "logoutPage": "https://www.google.com"
+  }
+}

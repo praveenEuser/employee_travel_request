@@ -29,7 +29,6 @@ entity Employee : cuid {
 entity Departments : cuid {
     d_name      : String(100);
     budget      : Decimal(15,2);    // total budget
-    @readonly
     usedBudget  : Decimal(15,2) default 0;
 }
 
@@ -43,9 +42,7 @@ entity TravelRequests : cuid {
       estCost    : Decimal(15,2);
       modes       : Composition of many TravelMode on modes.travelreq = $self;
       status     : String(50) default 'Draft';
-      @readonly
       rejectReason        : String(2000); 
-      @readonly
       requiresFinance: Boolean default false;
       
       expenses   : Composition of many TravelExpenses on expenses.c_request = $self;

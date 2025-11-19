@@ -75,8 +75,44 @@ module.exports = cds.service.impl(async function() {
                 })
                 .where({ ID: reqID })
         );
+        await tx.run(
+                UPDATE(DepartmentEntity)
+                .set({
+                usedBudget: check,
+                })
+                .where({ ID : deptID })
+        );
 
-        return true;
+        try {
+            const managerMail = mng?.m_mail;
+            const employeeMail = emp?.e_mail;
+            const managerName = mng?.m_name || "Your Manager";
+
+            if (employeeMail) {
+                await sendMail({
+                to: employeeMail,
+                cc: managerMail || undefined,
+                replyTo: managerMail || undefined,
+                subject: `Your Travel Expense for Request ${tr.ID} is Settled`,
+                html: `
+                    <p>Hi ${emp.e_name || "Colleague"},</p>
+                    <p>Your travel expense has been <b>Settled</b>.</p>
+                    <p>
+                    <b>Destination:</b> ${tr.destination}<br/>
+                    <b>Total Expense:</b> ${actualbudget}<br/>
+                    <b>Estimated Cost:</b> ${est}
+                    </p>
+                    <p>Regards,<br/>Travel App</p>
+                `
+                });
+            } else {
+                console.warn("⚠ Missing employee email. Skipping settlement mail.");
+            }
+            } catch (err) {
+            console.error("❌ Failed to send settlement email:", err.message);
+            }
+
+            return true;
     });
 
 

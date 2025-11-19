@@ -34,6 +34,60 @@ module.exports = cds.service.impl(async function() {
                     })
                     .where({ ID: reqID })
                 );
+
+                try {
+                // Load employee, manager, finance info
+                const emp = await tx.run(
+                    SELECT.one.from(EmployeeEntity).where({ ID: tr.employee_ID })
+                );
+                const mgr = await tx.run(
+                    SELECT.one.from(ManagerEntity).where({ ID: emp.e_manager_ID })
+                );
+                const fin = await tx.run(
+                    SELECT.one.from(FinanceEntity).where({ ID: emp.e_finance_ID })
+                );
+
+                const employeeMail = emp?.e_mail;
+                const managerMail  = mgr?.m_mail;
+                const financeMail  = fin?.f_mail;
+
+                const employeeName = emp?.e_name || "Employee";
+                const managerName  = mgr?.m_name || "Manager";
+                const financeName  = fin?.f_name || "Finance Team";
+
+                if (employeeMail && financeMail) {
+
+                    await sendMail({
+                    to: employeeMail,                // Employee receives final approved mail
+                    cc: [managerMail, financeMail].filter(Boolean), // Manager + Finance (optional)
+                    replyTo: financeMail,            // Replies go to Finance
+                    subject: `Travel Request ${tr.ID} Approved by Finance`,
+                    html: `
+                        <p>Hi ${employeeName},</p>
+
+                        <p>Your travel request <b>${tr.ID}</b> has been 
+                        <b style="color:green;">Approved by Finance</b>.</p>
+
+                        <p><b>Purpose:</b> ${tr.purpose}</p>
+                        <p><b>Destination:</b> ${tr.destination}</p>
+                        <p><b>From:</b> ${tr.fromDate}</p>
+                        <p><b>To:</b> ${tr.toDate}</p>
+                        <p><b>Estimated Cost:</b> ${tr.estCost}</p>
+
+                        <p>You may now proceed with your travel or complete further steps if required.</p>
+
+                        <p>Regards,<br/>Travel App</p>
+                    `
+                    });
+
+                } else {
+                    console.warn("⚠ Missing employee/finance email. Cannot send finance approval email.");
+                }
+
+                } catch (err) {
+                    console.error("❌ Finance approval email failed:", err.message);
+                }
+
     
                 return true;
         });
@@ -66,6 +120,67 @@ module.exports = cds.service.impl(async function() {
                 })
                 .where({ ID: reqID })
             );
+
+            try {
+                // Load employee, manager, finance info
+                const emp = await tx.run(
+                    SELECT.one.from(EmployeeEntity).where({ ID: tr.employee_ID })
+                );
+                const mgr = await tx.run(
+                    SELECT.one.from(ManagerEntity).where({ ID: emp.e_manager_ID })
+                );
+                const fin = await tx.run(
+                    SELECT.one.from(FinanceEntity).where({ ID: emp.e_finance_ID })
+                );
+
+                const employeeMail = emp?.e_mail;
+                const managerMail  = mgr?.m_mail;
+                const financeMail  = fin?.f_mail;
+
+                const employeeName = emp?.e_name || "Employee";
+                const managerName  = mgr?.m_name || "Manager";
+                const financeName  = fin?.f_name || "Finance Team";
+
+                if (employeeMail && financeMail) {
+
+                    await sendMail({
+                        to: employeeMail,                                 // Employee gets main mail
+                        cc: [managerMail, financeMail].filter(Boolean),   // CC manager + finance
+                        replyTo: financeMail,                             // Replies go to finance
+                        subject: `Travel Request ${tr.ID} Rejected by Finance`,
+                        html: `
+                            <p>Hi ${employeeName},</p>
+
+                            <p>Your travel request <b>${tr.ID}</b> has been 
+                            <b style="color:red;">Rejected by Finance</b>.</p>
+
+                            <p><b>Reason for Rejection:</b></p>
+                            <p style="background:#ffe5e5;padding:10px;border-left:4px solid red;">
+                                ${comments}
+                            </p>
+
+                            <p><b>Purpose:</b> ${tr.purpose}</p>
+                            <p><b>Destination:</b> ${tr.destination}</p>
+                            <p><b>From:</b> ${tr.fromDate}</p>
+                            <p><b>To:</b> ${tr.toDate}</p>
+                            <p><b>Estimated Cost:</b> ${tr.estCost}</p>
+
+                            <p>You may modify the request and submit again if required.</p>
+
+                            <p>Regards,<br/>Travel App</p>
+                        `
+                    });
+
+                } else {
+                    console.warn("⚠ Missing employee/finance email. Cannot send finance rejection email.");
+                }
+
+            } catch (err) {
+                console.error("❌ Finance rejection email failed:", err.message);
+            }
+
+
+            
     
             return true;
         });

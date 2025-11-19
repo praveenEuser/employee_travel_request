@@ -6,10 +6,13 @@
     "@cap-js/hana": "^2",
     "@sap/cds": "^9",
     "@sap/cds-dk": "^9.4.3",
-    "express": "^4"
+    "express": "^4",
+    "nodemailer": "^7.0.10",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
     "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
@@ -30,7 +33,41 @@
     "watch-finance_approval_dashboard": "cds watch --open com.etr.financeapprovaldashboard.financeapprovaldashboard/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
-  "cds": {},
+  "cds": {
+    "requires": {
+      "db": "hana",
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "auth": {
+        "[development]": {
+          "strategy": "mock",
+          "users": {
+            "praveen": {
+              "password": "sasumira",
+              "roles": [
+                "AdminRole"
+              ]
+            },
+            "ram": {
+              "password": "sasumira",
+              "roles": [
+                "EmployeeRole"
+              ],
+              "userAttributes": {
+                "EmployeeID": [
+                  "890f2f34-c778-4651-a386-b40f795acc79"
+                ]
+              }
+            }
+          }
+        },
+        "[production]": {
+          "strategy": "JWT"
+        }
+      }
+    }
+  },
   "workspaces": [
     "app/*"
   ],

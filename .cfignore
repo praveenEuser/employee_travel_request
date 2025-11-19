@@ -1,0 +1,19 @@
+#cat > .cfignore <<'EOF'
+# Local dev files
+.vscode/
+*.log
+
+# Do not upload node_modules and build outputs
+node_modules/
+**/node_modules/
+dist/
+build/
+gen/
+mta_archives/
+*.tgz
+
+# Editor / OS files
+.DS_Store
+*.swp
+.idea/
+EOF
